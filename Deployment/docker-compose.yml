@@ -1,15 +1,13 @@
 version: "3"
 services:
   syncplay-server:
-    image: ninetaillabs/syncplay-server
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+    build: ..
+    restart_policy: on-failure
     ports:
       - "8999:8999"
-    environment:
-     - PASSWORD=<You should add your own password here>
-     - TLS=/certs
+    command:
+      - "--password=<You should add your own password here>"
+      - "--salt=LKAJSDLOJSDA"
+      - "--tls=/app/syncplay/certs/..."
     volumes:
-     - ./<path to tls certs>:/certs
+      - <path to certs>:/app/syncplay/certs
